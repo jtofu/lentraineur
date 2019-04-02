@@ -1,4 +1,4 @@
-class Api::V1::TrainingsController < Api::V1::BaseController
+class Api::V1::ReviewsController < Api::V1::BaseController
   def index
     @trainings = Training.all
   end
@@ -17,7 +17,7 @@ class Api::V1::TrainingsController < Api::V1::BaseController
   end
 
   def update
-
+     @training = Training.find(params[:id])
     if @training.update(training_params)
       render :show
     else

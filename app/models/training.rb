@@ -6,3 +6,5 @@ class Training < ApplicationRecord
   validates :title, :price_per_hour, :location, :min_start_time, :max_end_time, presence: true
   validates :price_per_hour, numericality: { only_integer: true }
 end
+
+

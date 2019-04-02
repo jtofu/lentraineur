@@ -17,7 +17,7 @@ class Api::V1::TrainingsController < Api::V1::BaseController
   end
 
   def update
-     @training = Training.find(params[:id])
+    @training = Training.find(params[:id])
     if @training.update(training_params)
       render :show
     else

@@ -1,25 +1,12 @@
 class Api::V1::ReviewsController < Api::V1::BaseController
   def index
-    @trainings = Training.all
-  end
-
-  def show
-    @training = Training.find(params[:id])
+    @reviews = Review.all
   end
 
   def create
-    @training = Training.new(training_params)
-    if @training.save
+    @review = Review.new(review_params)
+    if @review.save
       render :show, status: :created
-    else
-      render_error
-    end
-  end
-
-  def update
-     @training = Training.find(params[:id])
-    if @training.update(training_params)
-      render :show
     else
       render_error
     end
@@ -27,12 +14,12 @@ class Api::V1::ReviewsController < Api::V1::BaseController
 
   private
 
-   def training_params
-    params.require(:training).permit(:title, :description, :price_per_hour, :location, :min_start_time, :max_end_time, :user_id)
+  def review_params
+    params.require(:training).permit(:content, :rating, :booking_id)
   end
 
   def render_error
-    render json: { errors: @training.errors.full_messages },
+    render json: { errors: @review.errors.full_messages },
     status: :unprocessable_entity
   end
 end

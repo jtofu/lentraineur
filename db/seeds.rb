@@ -27,9 +27,6 @@ end
 
 puts "Created new #{Training.count} trainings."
 
-puts "Seeding bookings..."
-Booking.create!(user: User.all.sample, training: Training.all.sample, start_time: )
-
 
 # puts "Seeding reviews..."
 

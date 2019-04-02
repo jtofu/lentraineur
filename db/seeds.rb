@@ -31,12 +31,14 @@ puts "Created new #{Training.count} trainings."
 sec_hr = 60 * 60
 
 puts "Seeding bookings..."
-5.times do
-  b = Booking.new(user: User.all.sample, training: Training.all.sample)
-  b.start_time = b.training.min_start_time
-  b.end_time = b.start_time + (sec_hr * 2)
-  b.total_price = b.training.price_per_hour * 2
-  b.save
+Training.all.each do |training|
+  5.times do
+    b = Booking.new(user: User.all.sample, training: training)
+    b.start_time = b.training.min_start_time
+    b.end_time = b.start_time + (sec_hr * 2)
+    b.total_price = b.training.price_per_hour * 2
+    b.save
+  end
 end
 
 puts "Created new #{Booking.count} bookings."

@@ -1,10 +1,13 @@
 class Api::V1::ReviewsController < Api::V1::BaseController
+
   def index
-    @reviews = Review.all
-  end
+    @booking = booking.find(params[:id])
+    @reviews = @booking.reviews
 
   def create
+    @booking = booking.find(params[:id])
     @review = Review.new(review_params)
+    @review.booking = @booking
     if @review.save
       render :show, status: :created
     else
@@ -15,7 +18,7 @@ class Api::V1::ReviewsController < Api::V1::BaseController
   private
 
   def review_params
-    params.require(:training).permit(:content, :rating, :booking_id)
+    params.require(:review).permit(:content, :rating, :booking_id)
   end
 
   def render_error

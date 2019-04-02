@@ -27,7 +27,6 @@ end
 
 puts "Created new #{Training.count} trainings."
 
-
 sec_hr = 60 * 60
 
 puts "Seeding bookings..."

@@ -3,6 +3,7 @@ class Api::V1::ReviewsController < Api::V1::BaseController
   def index
     @booking = Booking.find(params[:booking_id])
     @reviews = Review.all
+  end
 
   def create
     @booking = Booking.find(params[:booking_id])

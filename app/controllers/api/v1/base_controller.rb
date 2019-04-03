@@ -22,6 +22,4 @@ class Api::V1::BaseController < ActionController::Base
   def current_user
     @current_user = User.find(params[:user_id])
   end
-
-
 end

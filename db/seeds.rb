@@ -1,13 +1,17 @@
+puts  "Destroying Reviews.."
 Review.destroy_all if Rails.env.development?
+puts  "Destroying Bookings.."
 Booking.destroy_all if Rails.env.development?
+puts  "Destroying Trainings.."
 Training.destroy_all if Rails.env.development?
+puts  "Destroying Users.."
 User.destroy_all if Rails.env.development?
 
 
 puts "Seeding users...."
 
 5.times do
-  User.create!(wechat_id: Faker::IDNumber.spanish_foreign_citizen_number, username: Faker::Internet.username)
+  User.create!(wechat_id: Faker::IDNumber.spanish_foreign_citizen_number, username: Faker::Internet.username, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name)
 end
 
 puts "Created new #{User.count} users."

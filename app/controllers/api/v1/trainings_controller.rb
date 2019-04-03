@@ -1,4 +1,6 @@
 class Api::V1::TrainingsController < Api::V1::BaseController
+  skip_before_action :verify_authenticity_token
+
   def index
     @trainings = Training.all
   end
@@ -8,7 +10,9 @@ class Api::V1::TrainingsController < Api::V1::BaseController
   end
 
   def create
+    @user = current_user
     @training = Training.new(training_params)
+    @training.user = @user
     if @training.save
       render :show, status: :created
     else

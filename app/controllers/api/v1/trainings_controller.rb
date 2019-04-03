@@ -1,4 +1,5 @@
 class Api::V1::TrainingsController < Api::V1::BaseController
+  skip_before_action :verify_authenticity_token
   def index
     @trainings = Training.all
   end

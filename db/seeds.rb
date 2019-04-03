@@ -25,8 +25,15 @@ locations = %w(Jingan FFC Xujiahui Pudong Minhang Gubei Hongqiao Huangpu)
 
 suffixes = ["training with a semi-pro", "personal coaching", "crash course", "bootcamp"]
 
+boxing = 'https://images.unsplash.com/photo-1495555687398-3f50d6e79e1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'
+basketball = 'https://images.unsplash.com/photo-1484482340112-e1e2682b4856?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1655&q=80'
+tennis = 'https://images.unsplash.com/photo-1545809074-59472b3f5ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'
+weightlifting = 'https://images.unsplash.com/photo-1526403646408-57b94dc15399?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'
+
+images = [boxing, basketball, tennis, weightlifting]
+
 20.times do
-  training = Training.create!(title: "#{sports.sample} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, min_start_time: Faker::Date.between(2.days.ago, Date.today), max_end_time: Faker::Date.between(Date.today, 5.days.from_now), user: User.all.sample)
+  training = Training.create!(title: "#{sports.sample} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, min_start_time: Faker::Date.between(2.days.ago, Date.today), max_end_time: Faker::Date.between(Date.today, 5.days.from_now), user: User.all.sample, image: images.sample)
 end
 
 puts "Created new #{Training.count} trainings."
@@ -56,5 +63,10 @@ Booking.all.each do |b|
 end
 
 puts "Created new #{Review.count} reviews"
+
+
+
+
+
 
 

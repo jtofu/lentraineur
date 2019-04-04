@@ -10,20 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_022619) do
+ActiveRecord::Schema.define(version: 2019_04_04_032248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
     t.bigint "user_id"
-    t.bigint "training_id"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["training_id"], name: "index_bookings_on_training_id"
+    t.bigint "schedule_id"
+    t.index ["schedule_id"], name: "index_bookings_on_schedule_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
@@ -34,6 +34,15 @@ ActiveRecord::Schema.define(version: 2019_04_04_022619) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.bigint "training_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["training_id"], name: "index_schedules_on_training_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
@@ -66,8 +75,6 @@ ActiveRecord::Schema.define(version: 2019_04_04_022619) do
     t.text "description"
     t.integer "price_per_hour"
     t.string "location"
-    t.datetime "min_start_time"
-    t.datetime "max_end_time"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -85,8 +92,9 @@ ActiveRecord::Schema.define(version: 2019_04_04_022619) do
     t.string "last_name"
   end
 
-  add_foreign_key "bookings", "trainings"
+  add_foreign_key "bookings", "schedules"
   add_foreign_key "bookings", "users"
   add_foreign_key "reviews", "bookings"
+  add_foreign_key "schedules", "trainings"
   add_foreign_key "trainings", "users"
 end

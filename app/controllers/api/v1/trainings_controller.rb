@@ -1,3 +1,8 @@
+# Remove min and max time from params
+# Create @schedule variable
+# Set @schedule on save
+# Update seed file
+
 class Api::V1::TrainingsController < Api::V1::BaseController
   skip_before_action :verify_authenticity_token
 

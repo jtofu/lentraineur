@@ -1,6 +1,8 @@
 class Training < ApplicationRecord
   belongs_to :user
-  has_many :bookings
+  # Add relation to training schedule
+  has_many :schedules
+  has_many :bookings, through: :schedules
   has_many :reviews, through: :bookings
 
   validates :title, :price_per_hour, :location, presence: true
@@ -8,5 +10,4 @@ class Training < ApplicationRecord
 
   acts_as_taggable_on :categories
 end
-
 

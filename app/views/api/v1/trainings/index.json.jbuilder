@@ -8,3 +8,5 @@ json.trainings do
     end
   end
 end
+
+

@@ -1,4 +1,4 @@
 json.extract! @user, :id, :wechat_id, :username, :profile_image, :first_name, :last_name
 json.trainings @user.trainings do |training|
-  json.extract! training, :id, :title, :description, :price_per_hour, :location, :min_start_time, :max_end_time, :image
+  json.extract! training, :id, :title, :description, :price_per_hour, :location, :image
 end

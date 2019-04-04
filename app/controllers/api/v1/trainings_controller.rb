@@ -56,7 +56,7 @@ end
   private
 
    def training_params
-    params.require(:training).permit(:image, :user_id, :title, :description, :price_per_hour, :location, tag_list: [])
+    params.require(:training).permit(:image, :user_id, :title, :description, :price_per_hour, :location, :category_list)
   end
 
   def render_error

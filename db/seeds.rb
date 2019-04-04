@@ -48,7 +48,7 @@ images = [boxing, basketball, tennis, weightlifting, default]
     image = default
   end
 
-  training = Training.create!(title: "#{sport.capitalize} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, min_start_time: Faker::Date.between(2.days.ago, Date.today), max_end_time: Faker::Date.between(Date.today, 5.days.from_now), user: User.all.sample, image: image)
+  training = Training.create!(title: "#{sport.capitalize} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, user: User.all.sample, image: image)
   training.category_list.add(sport)
   training.save
 end

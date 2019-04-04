@@ -12,6 +12,14 @@ class Api::V1::TrainingsController < Api::V1::BaseController
 
   def show
     @training = Training.find(params[:id])
+    @reviews = []
+    @training.schedules.each do |schedule|
+      schedule.bookings.each do |booking|
+        booking.reviews.each do |review|
+          @reviews << review
+        end
+      end
+    end
   end
 
   def create

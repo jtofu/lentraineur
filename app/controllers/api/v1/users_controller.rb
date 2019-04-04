@@ -1,4 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
+  skip_before_action :verify_authenticity_token
   before_action :set_user
 
   def show
@@ -19,7 +20,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :profile_image)
+    params.require(:user).permit(:first_name, :last_name, :profile_image, :username)
   end
 
   def render_error

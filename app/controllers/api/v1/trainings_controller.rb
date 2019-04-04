@@ -7,7 +7,11 @@ class Api::V1::TrainingsController < Api::V1::BaseController
   skip_before_action :verify_authenticity_token
 
   def index
-    @trainings = Training.all
+    if params[:tag].present?
+      @trainings = Training.tagged_with(params[:tag])
+    else
+      @trainings = Training.all
+    end
   end
 
   def show

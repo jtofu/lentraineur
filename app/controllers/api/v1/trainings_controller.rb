@@ -32,7 +32,7 @@ class Api::V1::TrainingsController < Api::V1::BaseController
   private
 
    def training_params
-    params.require(:training).permit(:title, :description, :price_per_hour, :location, :min_start_time, :max_end_time, :user_id)
+    params.require(:training).permit(:title, :description, :price_per_hour, :location, :min_start_time, :max_end_time, tag_list: [])
   end
 
   def render_error

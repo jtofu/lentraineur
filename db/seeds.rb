@@ -19,7 +19,7 @@ puts "Created new #{User.count} users."
 
 puts "Seeding trainings..."
 
-sports = %W(football tennis badminton thai-boxing brazilian-jiujitsu marathon triathlon weight-lifting hiit cardio-training basketball volleyball)
+sports = %W(football tennis badminton boxing weightlifting cardio-training basketball volleyball)
 
 locations = %w(Jingan FFC Xujiahui Pudong Minhang Gubei Hongqiao Huangpu)
 
@@ -30,10 +30,27 @@ basketball = 'https://images.unsplash.com/photo-1484482340112-e1e2682b4856?ixlib
 tennis = 'https://images.unsplash.com/photo-1545809074-59472b3f5ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'
 weightlifting = 'https://images.unsplash.com/photo-1526403646408-57b94dc15399?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80'
 
-images = [boxing, basketball, tennis, weightlifting]
+default = 'https://images.unsplash.com/photo-1461897104016-0b3b00cc81ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
+
+images = [boxing, basketball, tennis, weightlifting, default]
 
 20.times do
-  training = Training.create!(title: "#{sports.sample.capitalize} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, min_start_time: Faker::Date.between(2.days.ago, Date.today), max_end_time: Faker::Date.between(Date.today, 5.days.from_now), user: User.all.sample, image: images.sample)
+  sport = sports.sample
+  if sport == "boxing"
+    image = boxing
+  elsif sport == "basketball"
+    image = basketball
+  elsif sport == "tennis"
+    image = tennis
+  elsif sport == "weightlifting"
+    image = weightlifting
+  else
+    image = default
+  end
+
+  training = Training.create!(title: "#{sport.capitalize} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, min_start_time: Faker::Date.between(2.days.ago, Date.today), max_end_time: Faker::Date.between(Date.today, 5.days.from_now), user: User.all.sample, image: image)
+  training.category_list.add(sport)
+  training.save
 end
 
 puts "Created new #{Training.count} trainings."

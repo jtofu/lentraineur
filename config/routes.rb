@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       resources :schedules, only: [:show, :update, :destroy]
       resources :users, only: [:show, :create, :update]
 
+      get '/tagged', to: "trainings#tagged", as: :tagged
+
       post '/login', to: 'login#login'
     end
   end

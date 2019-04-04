@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       end
       resources :users, only: [:show, :create, :update]
 
+      get '/tagged', to: "trainings#tagged", as: :tagged
+
       post '/login', to: 'login#login'
     end
   end

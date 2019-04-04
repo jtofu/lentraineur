@@ -12,6 +12,7 @@ class Api::V1::TrainingsController < Api::V1::BaseController
 
   def show
     @training = Training.find(params[:id])
+    @related_trainings = @traiing.find_related_tags
   end
 
   def create
@@ -23,6 +24,14 @@ class Api::V1::TrainingsController < Api::V1::BaseController
       render_error
     end
   end
+
+  def tagged
+  if params[:tag].present?
+    @trainings = Training.tagged_with(params[:tag])
+  else
+    @trainings = Training.all
+  end
+end
 
   def update
     @training = Training.find(params[:id])

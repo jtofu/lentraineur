@@ -5,6 +5,8 @@ class Training < ApplicationRecord
 
   validates :title, :price_per_hour, :location, presence: true
   validates :price_per_hour, numericality: { only_integer: true }
+
+  acts_as_taggable_on :categories
 end
 
 

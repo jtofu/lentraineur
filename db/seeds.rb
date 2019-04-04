@@ -2,6 +2,9 @@ puts  "Destroying Reviews.."
 Review.destroy_all if Rails.env.development?
 puts  "Destroying Bookings.."
 Booking.destroy_all if Rails.env.development?
+puts  "Destroying Schedules.."
+Schedule.destroy_all if Rails.env.development?
+
 puts  "Destroying Trainings.."
 Training.destroy_all if Rails.env.development?
 puts  "Destroying Users.."
@@ -48,22 +51,33 @@ images = [boxing, basketball, tennis, weightlifting, default]
     image = default
   end
 
-  training = Training.create!(title: "#{sport.capitalize} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, min_start_time: Faker::Date.between(2.days.ago, Date.today), max_end_time: Faker::Date.between(Date.today, 5.days.from_now), user: User.all.sample, image: image)
+  training = Training.create!(title: "#{sport.capitalize} #{suffixes.sample} in #{locations.sample}", description: Faker::Quotes::Shakespeare.romeo_and_juliet_quote, price_per_hour: (100..300).to_a.sample, location: locations.sample, user: User.all.sample, image: image)
   training.category_list.add(sport)
   training.save
 end
 
 puts "Created new #{Training.count} trainings."
 
+puts "Seeding schedules...."
+
+Training.all.each do |t|
+  3.times do
+    s = Schedule.create!(training: t, start_time: Faker::Time.between(DateTime.now - 2, DateTime.now - 1), end_time: Faker::Time.between(DateTime.now - 1, DateTime.now))
+  end
+end
+
+puts "Created new #{Schedule.count} schedules."
+
+
 sec_hr = 60 * 60
 
 puts "Seeding bookings..."
-Training.all.each do |training|
-  5.times do
-    b = Booking.new(user: User.all.sample, training: training)
-    b.start_time = b.training.min_start_time
-    b.end_time = b.start_time + (sec_hr * 2)
-    b.total_price = b.training.price_per_hour * 2
+Schedule.all.each do |schedule|
+  3.times do
+    b = Booking.new(user: User.all.sample, schedule: schedule)
+    b.start_time = schedule.start_time
+    b.end_time = schedule.end_time
+    b.total_price = schedule.training.price_per_hour * 2
     b.save
   end
 end

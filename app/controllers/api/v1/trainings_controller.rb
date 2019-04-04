@@ -17,7 +17,6 @@ class Api::V1::TrainingsController < Api::V1::BaseController
   def create
     @user = current_user
     @training = Training.new(training_params)
-    @training.user = @user
     if @training.save
       render :show, status: :created
     else

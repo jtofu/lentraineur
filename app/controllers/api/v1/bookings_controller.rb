@@ -1,6 +1,6 @@
 class Api::V1::BookingsController < Api::V1::BaseController
   skip_before_action :verify_authenticity_token
-  before_action :set_schedule, only: [:index, :create]
+  before_action :set_schedule, only: [:create]
   def index
     # find user
     @user = current_user
@@ -13,13 +13,13 @@ class Api::V1::BookingsController < Api::V1::BaseController
   end
 
   def create
-    @training = Training.find(params[:training_id])
-    @schedules = @training.schedules
+    # @training = Training.find(params[:training_id])
+    # @schedules = @training.schedules
 
     @booking = Booking.new(booking_params)
     @booking.schedule = @schedule
-    @booking.user = current_user
-    @booking.total_price = @training.price_per_hour * 2
+    # @booking.user = current_user
+    # @booking.total_price = @training.price_per_hour * 2
     if @booking.save
       render :show, status: :created
     else

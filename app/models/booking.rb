@@ -3,5 +3,5 @@ class Booking < ApplicationRecord
   belongs_to :schedule
   has_many :reviews
 
-  validates :start_time, :end_time, :total_price, presence: true
+  validates :start_time, :end_time, presence: true
 end

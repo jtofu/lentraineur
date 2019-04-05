@@ -1,13 +1,13 @@
 class Api::V1::SchedulesController < Api::V1::BaseController
   skip_before_action :verify_authenticity_token
-  before_action :set_training
+  before_action :set_training, only: [:index, :create]
 
   def index
     @schedules = @training.schedules
   end
 
   def show
-
+    @schedule = Schedule.find(params[:id])
   end
 
   def create

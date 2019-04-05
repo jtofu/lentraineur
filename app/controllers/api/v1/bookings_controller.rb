@@ -14,6 +14,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 
   def create
     @training = Training.find(params[:training_id])
+    @schedules = @training.schedules
     @booking = Booking.new(booking_params)
 
     if @booking.save
@@ -36,7 +37,7 @@ class Api::V1::BookingsController < Api::V1::BaseController
 private
 
   def booking_params
-    params.require(:booking).permit(:user_id, :training_id, :reviews, :start_time, :end_time, :total_price)
+    params.require(:booking).permit(:user_id, :start_time, :end_time, :total_price)
   end
 
   def render_error
